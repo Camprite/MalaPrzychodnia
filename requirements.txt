@@ -1,0 +1,71 @@
+1 Wymagania
+    a) Projekty realizowane są indywidualnie.
+
+    b) Ocena zadania indywidualnego obejmuje ocenę:
+        (1) działającej aplikacji
+        (2) dokumentacji
+        (3) odpowiedź na pytania z zakresu przygotowanego rozwiązania ( obrona projektu)
+
+    c) Projekty powinny być zrealizowane i obronione do końca trwania semestru,
+        zalecana obrona w przedostatnim tygodniu zajęć (lub wcześniej), w terminie
+        konsultacji.
+
+    d) Rozwiązanie zadania indywidualnego musi wykorzystywać:
+        (1) paradygmat programowania obiektowego
+        (2) modyfikatory (public, private, protected, abstract, static, final)
+        (3) dziedziczenie, interfejsy, klasy i metody abstrakcyjne (wymagana jest
+            implementacja własnych interfejsów i klas abstrakcyjnych)
+        (4) obsługę sytuacji wyjątkowych (przechwytywanie własnych wyjątków)
+        (5) graficzny interfejs użytkownika z wykorzystaniem biblioteki SWING, obsługa
+            zdarzeń
+
+    e) Dokumentacja powinna zawierać:
+        (1) Temat projektu
+        (2) Specyfikacja problemu. Przyjęte założenia i ograniczenia
+        (3) Opis klas, algorytmów, zmiennych
+        (4) Diagram klas w UML
+        (5) Kod programu
+        (6) Przykładowe dane i wyniki
+        (7) Instrukcja dla użytkownika
+
+    f) Nazwy klas, zmiennych
+        Nazwy klas, interfejsów, typów wyliczeniowych muszą spełniać następujące wymagania:
+        interfejsów i typów wyliczeniowych
+            • Nazwy klas rozpoczynają się wielką literą
+            • Pisane camelCase
+            • Nazwy opisują klasę --- nazwa klasy musi informować o jej przeznaczeniu
+        Nazwy zmiennych i metod powinny spełniać następujące wymagania:
+            • Z małej litery
+            • Pisane camelCase.
+            • Nazwy opisują zmienną
+
+-------------------------Temat----------------------------
+11.Program symulujący pracę przychodni.
+    a) program umożliwia pracę trzech grup użytkowników: pacjentów, pielęgniarek,
+    lekarzy
+
+    b) w przychodni pracuje 3 lekarzy i 4 pielęgniarki.
+
+    c) przychodnia wykonuje badania np. USG, na które obowiązuje dodatkowa
+    rezerwacja, USG wykonuje jeden z lekarzy.
+
+    d) w bazie przychodni są dane osobowe i chorobowe pacjentów, na każdej wizycie
+    lekarz wykonuje wpis informacji do karty.
+
+    e) kartę pacjenta zakłada pielęgniarka
+
+    f) pacjenci rezerwują wizyty.
+
+    g) program sprawdza możliwość rezerwacji wizyty,
+
+    h) program umożliwia generowanie grafiku pracy pracowników przychodni.
+
+    i) wpisy o dyżurach wprowadza pielęgniarka
+
+    j) lekarz może sprawdzić swój grafik, dane swoich pacjentów.
+
+    k) pielęgniarka wprowadza, edytuje i usuwa dane pacjentów.
+
+    l) pacjent może przeglądać informacje o swoich wizytach.
+
+    m) dane o pacjentach, lekarzach, dyżurach i wizytach przechowywane są w plikach

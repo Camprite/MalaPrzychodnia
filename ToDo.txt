@@ -1,0 +1,18 @@
+-.Okno logowania
+    input login
+    input hasło
+    button zaloguj
+    (feature zapamiętujący login?)
+    (warto żeby dane były szyfrowane)
+    (warto zabezpieczyć się przed brute force 5 prób wejścia i konto się blokuje, odblokować może tylko Administrator systemu)
+-.Okno dla pacjenta
+-.Okno dla lekarza
+-.Okno dla pielęgniarki
+-.Okno dla Administratora
+-.GRUPA PACJENT-(Imie, Nazwisko, PESEL, Płeć, Karta pacjenta, Grafik wizyt, Rezerwacja wizyt)
+-.GRUPA PIELĘGNIARKA-(Imie, Nazwisko,PESEL, Płeć ,Moduł rejestracji pacjenta, Moduł grafiku)
+-.GRUPA LEKARZ-(Imie, Nazwiko,PESEL, Płeć, Specjalizacje,Podgląd grafiku, Podgląd danych pacjentów)
+
+
+Co trzeba wrzucić do pliku?
+Obiekty- Pacjent, Lekarz, Dyżury, Wizyty;
