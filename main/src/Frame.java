@@ -2,6 +2,8 @@ import org.w3c.dom.css.RGBColor;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 
 public class Frame extends JFrame {
@@ -10,7 +12,7 @@ public class Frame extends JFrame {
     public JLabel usernameLabel;
     public JTextField username;
     public JLabel passwordLabel;
-    public JTextField password;
+    public JPasswordField password;
 
 
 
@@ -54,7 +56,7 @@ public class Frame extends JFrame {
         loginUsernamePane.add(usernameLabel = new JLabel("Nazwa użytkownika"));
         loginUsernamePane.add(username = new JTextField("",20));
         loginPasswordPane.add(passwordLabel = new JLabel("Hasło"));
-        loginPasswordPane.add(password = new JTextField("",20));
+        loginPasswordPane.add(password = new JPasswordField("",20));
         loginEnterPane.add(enter = new JButton("Zaloguj"));
         usernameLabel.setForeground(Color.WHITE);
         passwordLabel.setForeground(Color.WHITE);
@@ -69,5 +71,11 @@ public class Frame extends JFrame {
         add(loginPane);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
+        enter.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println(password.getPassword());
+            }
+        });
     }
 }
