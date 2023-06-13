@@ -3,7 +3,7 @@ public abstract class Osoba {
     String imie;
     String nazwisko;
     String login;
-    String haslo;
+    char[] haslo;
     Long pesel;
 
 
@@ -18,7 +18,7 @@ public abstract class Osoba {
         this.login = login;
     }
 
-    public void setHaslo(String haslo) {
+    public void setHaslo(char[] haslo) {
         this.haslo = haslo;
     }
 
@@ -34,7 +34,7 @@ public abstract class Osoba {
         return pesel;
     }
 
-    public String getHaslo() {
+    public char[] getHaslo() {
         return haslo;
     }
 
