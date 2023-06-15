@@ -6,10 +6,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.util.InputMismatchException;
 
-public class Frame extends JFrame {
+public class Frame extends JFrame  implements Serializable{
     //Przychodnia
     public  Przychodnia przychodnia = null;
+    public  Osoba zalogowany = null;
 
     //MenuBar
     public JMenuBar loginMenuBar;
@@ -17,6 +19,7 @@ public class Frame extends JFrame {
     public JMenuItem stronaLogowania;
     public JMenuItem otworzPrzychodnieZPliku;
     public JMenuItem stworzNowaPrzychodnie;
+    public JMenuItem zamknijZapiszPrzychodnie;
 
     //logowanie
     public final JButton enter;
@@ -42,7 +45,11 @@ public class Frame extends JFrame {
 
 
 
+
     public Frame(){
+
+
+
         //Name of window
         setTitle("Mała przychodnia");
 
@@ -173,9 +180,11 @@ public class Frame extends JFrame {
         stronaLogowania = new JMenuItem("Strona logowania");
         otworzPrzychodnieZPliku = new JMenuItem("Otwórz baze przychodni z pliku");
         stworzNowaPrzychodnie = new JMenuItem("Stworz nową baze przychodni");
+        zamknijZapiszPrzychodnie = new JMenuItem("Zamknij i zapisz przychodnie ");
         loginMenu.add(stronaLogowania);
         loginMenu.add(otworzPrzychodnieZPliku);
         loginMenu.add(stworzNowaPrzychodnie);
+        loginMenu.add(zamknijZapiszPrzychodnie);
         loginMenuBar.add(loginMenu);
         this.setJMenuBar(loginMenuBar);
 
@@ -191,7 +200,51 @@ public class Frame extends JFrame {
                 if(przychodnia == null){
                     JOptionPane.showMessageDialog(null,"Brak wybranej przychodni");
                 }else {
-                    System.out.println(password.getPassword());
+                    try{
+                        if(zalogowany!=null){
+                            throw new InputMismatchException("Użytkownik jest juz zalogowany");
+                        }
+                        if (password.getPassword()==null) throw new InputMismatchException("Podaj hasło");
+                        if (username.getText()==null) throw new InputMismatchException("Podaj nazwe użytkownika");
+//                        System.out.println("login input");
+//                        System.out.println(username.getText());
+//                        System.out.println("haslo input");
+//                        System.out.println(password.getPassword());
+                        String passwordToString = new String(password.getPassword());
+                        zalogowany = przychodnia.login(username.getText(), passwordToString);
+                            if(zalogowany == null) {
+                                throw new InputMismatchException("Brak podanego użytkownika w bazie");
+                            }else {
+                                JOptionPane.showMessageDialog(null,"znaleziono "+ zalogowany.getImie());
+                            }
+
+                        if(zalogowany.getClass().getSimpleName().equals("Root")){
+
+                            JOptionPane.showMessageDialog(null,"Root");
+                        }
+                        if(zalogowany.getClass().getSimpleName().equals("Pielegniarka")){
+
+                            JOptionPane.showMessageDialog(null,"Pielegniarka");
+                        }
+                        if(zalogowany.getClass().getSimpleName().equals("Lekarz")){
+
+                            JOptionPane.showMessageDialog(null,"Lekarz");
+                        }
+                        if(zalogowany.getClass().getSimpleName().equals("Pacjent")){
+
+                            JOptionPane.showMessageDialog(null,"Pacjent");
+                        }
+
+
+
+                    }catch (Exception ex){
+                        JOptionPane.showMessageDialog(null,ex.getMessage());
+                        ex.printStackTrace();
+//                        System.out.println(ex.printStackTrace());
+                    }
+                    
+                    
+                    
                 }
 
 
@@ -231,7 +284,8 @@ public class Frame extends JFrame {
         stworzNowaPrzychodnieButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                przychodnia = new Przychodnia(nazwaNowejPrzychodni.getText(),nazwaAdministratora.getText(),hasloAdministratora.getPassword());
+                String adminPassword = new String(hasloAdministratora.getPassword());
+                przychodnia = new Przychodnia(nazwaNowejPrzychodni.getText(),nazwaAdministratora.getText(),"przychodnie/" +nazwaNowejPrzychodni.getText()+".przychodnia",adminPassword);
                 try {
                     File f = new File("przychodnie/" +nazwaNowejPrzychodni.getText()+".przychodnia");
                     if(f.exists()) {
@@ -257,12 +311,32 @@ public class Frame extends JFrame {
                         przychodnia = (Przychodnia) in.readObject();
                         JOptionPane.showMessageDialog(null,"Dane przychodni zostały wczytane.");
                     } catch (IOException | ClassNotFoundException ex) {
-                        ex.printStackTrace();
+//                        ex.printStackTrace();
+                        JOptionPane.showMessageDialog(null,"Baza niezdatna do odczytu");
                     }
                 }else {
                     JOptionPane.showMessageDialog(null,"Nie znaleziono pliku");
                 }
 
+            }
+        });
+        zamknijZapiszPrzychodnie.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(przychodnia!=null){
+                String filename = przychodnia.getFilename();
+                try {
+                    ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(new File(filename)));
+                    out.writeObject(przychodnia);
+                    JOptionPane.showMessageDialog(null,"Zapisano i zamknięto przyychodnie w pliku:" + filename);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+                przychodnia = null;}
+                else {
+                    JOptionPane.showMessageDialog(null,"Brak wybranej przychodni");
+
+                }
             }
         });
 

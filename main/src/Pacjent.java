@@ -1,4 +1,6 @@
-public class Pacjent extends Osoba{
+import java.io.Serializable;
+
+public class Pacjent extends Osoba implements Serializable {
     private KartaPacjenta kartaPacjenta = null;
     public Pacjent(String imie, String nazwisko, Long pesel) {
         super(imie, nazwisko, pesel);

@@ -1,9 +1,11 @@
-public abstract class Osoba {
+import java.io.Serializable;
+
+public abstract class Osoba implements Serializable {
 
     String imie;
     String nazwisko;
     String login;
-    char[] haslo;
+    String haslo;
     Long pesel;
 
 
@@ -18,7 +20,7 @@ public abstract class Osoba {
         this.login = login;
     }
 
-    public void setHaslo(char[] haslo) {
+    public void setHaslo(String haslo) {
         this.haslo = haslo;
     }
 
@@ -34,7 +36,7 @@ public abstract class Osoba {
         return pesel;
     }
 
-    public char[] getHaslo() {
+    public String getHaslo() {
         return haslo;
     }
 

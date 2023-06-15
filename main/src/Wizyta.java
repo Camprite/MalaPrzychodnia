@@ -1,4 +1,6 @@
-public class Wizyta {
+import java.io.Serializable;
+
+public class Wizyta implements Serializable {
     private String data;
     private String opis;
     private String wywiad;
