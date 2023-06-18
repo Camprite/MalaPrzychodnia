@@ -9,6 +9,7 @@ public class Przychodnia implements Serializable {
     private ArrayList<Pielegniarka> pielegniarki = new ArrayList<>();
     private ArrayList<Root> roots = new ArrayList<>();
     private ArrayList<Grafik> grafiki = new ArrayList<>();
+    private ArrayList<Uprawnienia> uprawnienia = new ArrayList<>();
 
     public Przychodnia(String nazwaPrzychodni, String rootName, String filename, String rootPassword){
         this.nazwaPrzychodni = nazwaPrzychodni;
@@ -54,6 +55,53 @@ public class Przychodnia implements Serializable {
 
         return null;
     };
+    public void addPermission(String permission){
+        Uprawnienia nowe = new Uprawnienia(permission);
+        for (Uprawnienia u: uprawnienia
+             ) {
+            if(u.getNazwaUprawnienia()==nowe.getNazwaUprawnienia()){
+                return;
+            }
+
+        }
+        this.uprawnienia.add(new Uprawnienia(permission));
+
+        }
+        public ArrayList<String> getUprawnieniaAsArrayOfString(){
+        ArrayList<String> output = new ArrayList<>();
+            for (Uprawnienia u:uprawnienia
+                 ) {
+                output.add(u.getNazwaUprawnienia());
+            }
+
+        return output;
+        }
+        public void addNewNurse(String imie, String nazwisko, Long pesel, String login, String haslo){
+        Pielegniarka newPielegniarka = new Pielegniarka(imie, nazwisko, pesel);
+        newPielegniarka.setLogin(login);
+        newPielegniarka.setHaslo(haslo);
+        pielegniarki.add(newPielegniarka);
+
+        }
+    public void addNewDoc(String imie, String nazwisko, Long pesel, String login, String haslo, ArrayList<Uprawnienia> uprawnienia) throws AddingUserExceprion {
+        if(imie==null)throw new AddingUserExceprion("Brak imienia");
+        Lekarz newLekarz = new Lekarz(imie, nazwisko, pesel,uprawnienia);
+        newLekarz.setLogin(login);
+        newLekarz.setHaslo(haslo);
+        lekarze.add(newLekarz);
+
+    }
+    public Uprawnienia getUprawnienie(String nazwa){
+        Uprawnienia u = new Uprawnienia(nazwa);
+        for (Uprawnienia upr: uprawnienia
+             ) {
+            if(u==upr){
+
+                return u;
+            }
+        }
+        return null;
+    }
 
 
 }

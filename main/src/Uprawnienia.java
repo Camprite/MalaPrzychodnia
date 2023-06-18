@@ -6,4 +6,8 @@ public class Uprawnienia implements Serializable {
     public Uprawnienia(String nazwaUprawnienia){
         this.nazwaUprawnienia = nazwaUprawnienia;
     }
+
+    public String getNazwaUprawnienia() {
+        return nazwaUprawnienia;
+    }
 }

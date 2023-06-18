@@ -6,7 +6,7 @@ public class Root extends Osoba implements Serializable {
         super(imie, nazwisko, pesel);
         setLogin(imie);
         setHaslo(haslo);
-        System.out.println(getLogin());
-        System.out.println(getHaslo());
+//        System.out.println(getLogin());
+//        System.out.println(getHaslo());
     }
 }

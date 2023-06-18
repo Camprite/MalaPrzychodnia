@@ -6,13 +6,44 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 
 public class Frame extends JFrame  implements Serializable{
 
     //Panel admienistratora
+    public ArrayList<String> docPermisionsArr;
+//    public JMenu rootMenu;
+    public JMenuBar rootMenuBar;
+    public JMenuItem rootDodajUprawnienie;
+//    public JMenuItem otworzPrzychodnieZPliku;
     public JPanel rootLoggedInPane;
+    public JPanel rootAddDocPane;
+    public JPanel rootAddDocPane1;
+    public JPanel rootAddDocPane2;
+//    public JPanel rootAddPermissionPane;
+//    public JPanel rootAddNursePane;
+//    rootAdd
+    public JLabel rootAddDocNameLabel;
+    public JTextField rootAddDocNameTF;
+    public JLabel rootAddDocSurnameLabel;
+    public JTextField rootAddDocSurnameTF;
+    public JLabel rootAddDocPESELLabel;
+    public JTextField rootAddDocPESELTF;
+    public JLabel rootAddDocLoginLabel;
+    public JTextField rootAddDocLoginTF;
+    public JLabel rootAddDocPasswordLabel;
+    public JPasswordField rootAddDocPasswordPF;
+    public JLabel rootAddDocPermissionsLabel;
+    public JList rootAddDocPermissionsJL;
+    public JButton rootAddDocAddButton;
+    public JButton rootAddNurseAddButton;
+    public JButton rootAddDocPermissionsJLClearButton;
 
+//    public JLabel docLabel;
+    public JLabel rootAddDocNewPermissionsLabel;
+    public JTextField rootAddDocNewPermissionTF;
+    public JButton rootAddDocAddNewPermission;
 
     //Panel lekarza
     public JPanel doctorLoggedInPane;
@@ -26,7 +57,9 @@ public class Frame extends JFrame  implements Serializable{
 
 
     //Przychodnia
-    public  Przychodnia przychodnia = null;
+//TEMPORARY
+    public  Przychodnia przychodnia = new Przychodnia("root","root","przychodnie/root.przychodnia","root");
+//TEMPORARY
     public  Osoba zalogowany = null;
 
     //MenuBar
@@ -77,7 +110,7 @@ public class Frame extends JFrame  implements Serializable{
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         setSize((int)screenSize.getWidth()/2,(int)screenSize.getHeight()/2);
         setMinimumSize(new Dimension(500,500));
-        Color backgound = new Color(0,0,0);
+        Color backgound = new Color(0,191,255);
 
         JPanel loginPane = new JPanel();
         loginPane.setLayout(new BoxLayout(loginPane,BoxLayout.PAGE_AXIS));
@@ -105,8 +138,12 @@ public class Frame extends JFrame  implements Serializable{
 //        loginHeaderPane.add(new Image());
         loginUsernamePane.add(usernameLabel = new JLabel("Nazwa użytkownika"));
         loginUsernamePane.add(username = new JTextField("",20));
+//        TEMPORARY
+        username.setText("root");
         loginPasswordPane.add(passwordLabel = new JLabel("Hasło"));
         loginPasswordPane.add(password = new JPasswordField("",20));
+//        TEMPORARY
+        password.setText("root");
         loginEnterPane.add(enter = new JButton("Zaloguj"));
         usernameLabel.setForeground(Color.WHITE);
         passwordLabel.setForeground(Color.WHITE);
@@ -191,18 +228,104 @@ public class Frame extends JFrame  implements Serializable{
         createNewFilePaneFL4.add(stworzNowaPrzychodnieButton);
 
 
+        //Root pane
+        rootLoggedInPane = new JPanel();
+        rootLoggedInPane.setBorder(BorderFactory.createEmptyBorder(100, //top
+                0, //left
+                0, //bottom
+                0) //right
+        );
+        rootLoggedInPane.setLayout(new BoxLayout(rootLoggedInPane,BoxLayout.PAGE_AXIS));
+        rootLoggedInPane.setBackground(backgound);
+//        Dodawanie Lekarza
+        rootAddDocPane = new JPanel();
+        rootAddDocPane.setLayout(new FlowLayout());
+        rootAddDocPane.setBackground(backgound);
+        rootAddDocPane1 = new JPanel();
+        rootAddDocPane1.setLayout(new FlowLayout());
+        rootAddDocPane1.setBackground(backgound);
+        rootAddDocPane2 = new JPanel();
+        rootAddDocPane2.setLayout(new FlowLayout());
+        rootAddDocPane2.setBackground(backgound);
+
+
+        rootAddDocNameLabel = new JLabel("Imie");
+        rootAddDocPane.add(rootAddDocNameLabel);
+        rootAddDocNameTF = new JTextField("",20);
+        rootAddDocPane.add(rootAddDocNameTF);
+        rootAddDocSurnameLabel = new JLabel("Nazwisko");
+        rootAddDocPane.add(rootAddDocSurnameLabel);
+        rootAddDocSurnameTF = new JTextField("",20);
+        rootAddDocPane.add(rootAddDocSurnameTF);
+        rootAddDocPESELLabel = new JLabel("PESEL");
+        rootAddDocPane1.add(rootAddDocPESELLabel);
+        rootAddDocPESELTF = new JTextField("",20);
+        rootAddDocPane1.add(rootAddDocPESELTF);
+        rootAddDocLoginLabel = new JLabel("Login");
+        rootAddDocPane1.add(rootAddDocLoginLabel);
+        rootAddDocLoginTF = new JTextField("",20);
+        rootAddDocPane1.add(rootAddDocLoginTF);
+        rootAddDocPasswordLabel = new JLabel("Hasło");
+        rootAddDocPane1.add(rootAddDocPasswordLabel);
+        rootAddDocPasswordPF = new JPasswordField("",20);
+        rootAddDocPane1.add(rootAddDocPasswordPF);
+
+//Temporary added basic doc permissions
+        przychodnia.addPermission("USG");
+        przychodnia.addPermission("DSG");
+
+
+
+        rootAddDocPermissionsLabel = new JLabel("<html>Wybierz uprawnienia <br> jeśli chcesz dodać doktora <br> (By wybrać więcej niż jedno przytrzymaj CTRL)</html>");
+        rootAddDocPane2.add(rootAddDocPermissionsLabel);
+        docPermisionsArr = przychodnia.getUprawnieniaAsArrayOfString();
+
+        JPanel rootAddDocPermissionsJLPane = new JPanel();
+        rootAddDocPermissionsJLPane.setLayout(new FlowLayout());
+        rootAddDocPane2.add(rootAddDocPermissionsJLPane);
+
+
+        rootAddDocPermissionsJL = new JList(docPermisionsArr.toArray(new String[docPermisionsArr.size()]));
+        rootAddDocPermissionsJL.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        rootAddDocPermissionsJL.setSize(new Dimension(200,200));
+        rootAddDocPermissionsJL.setPreferredSize(new Dimension(100,100));
+        rootAddDocPermissionsJLPane.add(rootAddDocPermissionsJL);
+
+        rootAddDocAddButton = new JButton("Dodaj lekarza");
+        rootAddDocPane2.add(rootAddDocAddButton);
+        rootAddNurseAddButton = new JButton("Dodaj pielęgniarke");;
+        rootAddDocPane2.add(rootAddNurseAddButton);
+
+
+        rootAddDocPermissionsJLClearButton = new JButton("Wyczyść zaznaczanie");
+
+
+
+        rootLoggedInPane.add(rootAddDocPane);
+        rootLoggedInPane.add(rootAddDocPane1);
+        rootLoggedInPane.add(rootAddDocPane2);
+        rootDodajUprawnienie = new JMenuItem("Dodaj nowe uprawnienie");
+        rootMenuBar = new JMenuBar();
+        rootMenuBar.add(rootDodajUprawnienie);
+
+
+
+        //MENU BAR
+
+
         loginMenuBar = new JMenuBar();
         loginMenu = new JMenu("Menu");
         stronaLogowania = new JMenuItem("Strona logowania");
         otworzPrzychodnieZPliku = new JMenuItem("Otwórz baze przychodni z pliku");
         stworzNowaPrzychodnie = new JMenuItem("Stworz nową baze przychodni");
         zamknijZapiszPrzychodnie = new JMenuItem("Zamknij i zapisz przychodnie ");
-        loginMenu.add(stronaLogowania);
-        loginMenu.add(otworzPrzychodnieZPliku);
-        loginMenu.add(stworzNowaPrzychodnie);
-        loginMenu.add(zamknijZapiszPrzychodnie);
-        loginMenuBar.add(loginMenu);
+        loginMenuBar.add(stronaLogowania);
+        loginMenuBar.add(otworzPrzychodnieZPliku);
+        loginMenuBar.add(stworzNowaPrzychodnie);
+        loginMenuBar.add(zamknijZapiszPrzychodnie);
+//        loginMenuBar.add(loginMenu);
         this.setJMenuBar(loginMenuBar);
+
 
 
 
@@ -231,13 +354,17 @@ public class Frame extends JFrame  implements Serializable{
                             if(zalogowany == null) {
                                 throw new InputMismatchException("Brak podanego użytkownika w bazie");
                             }else {
-                                JOptionPane.showMessageDialog(null,"znaleziono "+ zalogowany.getImie());
+//                                JOptionPane.showMessageDialog(null,"znaleziono "+ zalogowany.getImie());
                             }
 
                         getContentPane().removeAll();
+                        getJMenuBar().removeAll();
+
+
                         if(zalogowany.getClass().getSimpleName().equals("Root")){
                             getContentPane().add(rootLoggedInPane);
                             rootLoggedInPane.setVisible(true);
+                            setJMenuBar(rootMenuBar);
                         }
                         if(zalogowany.getClass().getSimpleName().equals("Pielegniarka")){
                             getContentPane().add(nurseLoggedInPane);
@@ -256,6 +383,7 @@ public class Frame extends JFrame  implements Serializable{
                         getContentPane().repaint();
 
 
+
                     }catch (Exception ex){
                         JOptionPane.showMessageDialog(null,ex.getMessage());
                         ex.printStackTrace();
@@ -268,6 +396,25 @@ public class Frame extends JFrame  implements Serializable{
 
 
 
+            }
+        });
+        rootDodajUprawnienie.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               String input = (String) JOptionPane.showInputDialog(null,"Podaj nazwe uprawnienia");
+//                System.out.println(input);
+                przychodnia.addPermission(input);
+                docPermisionsArr = przychodnia.getUprawnieniaAsArrayOfString();
+
+
+                rootAddDocPermissionsJL = new JList(docPermisionsArr.toArray(new String[docPermisionsArr.size()]));
+                rootAddDocPermissionsJL.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+                rootAddDocPermissionsJL.setSize(new Dimension(200,200));
+                rootAddDocPermissionsJL.setPreferredSize(new Dimension(100,100));
+                rootAddDocPermissionsJLPane.removeAll();
+                rootAddDocPermissionsJLPane.add(rootAddDocPermissionsJL);
+
+                getContentPane().revalidate();
             }
         });
         otworzPrzychodnieZPliku.addActionListener(new ActionListener() {
@@ -325,6 +472,13 @@ public class Frame extends JFrame  implements Serializable{
                 }
             }
         });
+
+        rootAddDocPermissionsJLClearButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                rootAddDocPermissionsJL.clearSelection();
+            }
+        });
         otworzPrzychodnieZPlikuButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -353,6 +507,7 @@ public class Frame extends JFrame  implements Serializable{
                     ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(new File(filename)));
                     out.writeObject(przychodnia);
                     JOptionPane.showMessageDialog(null,"Zapisano i zamknięto przyychodnie w pliku:" + filename);
+                    System.exit(0);
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
@@ -363,6 +518,50 @@ public class Frame extends JFrame  implements Serializable{
                 }
             }
         });
+        rootAddNurseAddButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    if(rootAddDocNameTF.getText().isBlank() || rootAddDocSurnameTF.getText().isBlank() || rootAddDocPESELTF.getText().isBlank() || rootAddDocLoginTF.getText().isBlank() || rootAddDocPasswordPF.getPassword().toString().isBlank()) throw new AddingUserExceprion("Żadne pole nie może być puste");
+                    if(Long.valueOf(rootAddDocPESELTF.getText())<10000000000L || Long.valueOf(rootAddDocPESELTF.getText())>=100000000000L)throw new AddingUserExceprion("Niezgodny pesel");
 
+                    przychodnia.addNewNurse(rootAddDocNameTF.getText(),rootAddDocSurnameTF.getText(), Long.valueOf(rootAddDocPESELTF.getText()) ,rootAddDocLoginTF.getText(),rootAddDocPasswordPF.getPassword().toString());
+                    JOptionPane.showMessageDialog(null,"Dodano pielęgniarke");
+                }catch (AddingUserExceprion ex){
+                    ex.getMessage();
+                    JOptionPane.showMessageDialog(null,ex.getMessage());
+                }
+            }
+        });
+        rootAddDocAddButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    ArrayList<Uprawnienia> u = new ArrayList<>();
+                  int[] selectedIx =  rootAddDocPermissionsJL.getSelectedIndices();
+                    String sel;
+                    for (int i = 0; i < selectedIx.length; i++) {
+                        sel = rootAddDocPermissionsJL.getModel().getElementAt(selectedIx[i]).toString();
+                        System.out.println(sel);
+                        Uprawnienia u1 = przychodnia.getUprawnienie(sel);
+                        if(u1!=null){
+                            u.add(u1);
+                        }
+
+                    }
+
+                    if(rootAddDocNameTF.getText().isBlank() || rootAddDocSurnameTF.getText().isBlank() || rootAddDocPESELTF.getText().isBlank() || rootAddDocLoginTF.getText().isBlank() || rootAddDocPasswordPF.getPassword().toString().isBlank()) throw new AddingUserExceprion("Żadne pole nie może być puste");
+                    if(Long.valueOf(rootAddDocPESELTF.getText())<10000000000L || Long.valueOf(rootAddDocPESELTF.getText())>=100000000000L)throw new AddingUserExceprion("Niezgodny pesel");
+
+                    przychodnia.addNewDoc(rootAddDocNameTF.getText(),rootAddDocSurnameTF.getText(), Long.valueOf(rootAddDocPESELTF.getText()) ,rootAddDocLoginTF.getText(),rootAddDocPasswordPF.getPassword().toString(),u);
+                    JOptionPane.showMessageDialog(null,"Dodano lekarza");
+                }catch (AddingUserExceprion ex){
+                    ex.getMessage();
+                    JOptionPane.showMessageDialog(null,ex.getMessage());
+                }
+
+
+            }
+        });
     }
 }
