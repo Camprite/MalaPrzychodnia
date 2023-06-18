@@ -9,6 +9,22 @@ import java.io.*;
 import java.util.InputMismatchException;
 
 public class Frame extends JFrame  implements Serializable{
+
+    //Panel admienistratora
+    public JPanel rootLoggedInPane;
+
+
+    //Panel lekarza
+    public JPanel doctorLoggedInPane;
+
+    //Panel pielegniarki
+    public JPanel nurseLoggedInPane;
+
+    //Panel pacjenta
+    public JPanel patientLoggedInPane;
+
+
+
     //Przychodnia
     public  Przychodnia przychodnia = null;
     public  Osoba zalogowany = null;
@@ -218,23 +234,26 @@ public class Frame extends JFrame  implements Serializable{
                                 JOptionPane.showMessageDialog(null,"znaleziono "+ zalogowany.getImie());
                             }
 
+                        getContentPane().removeAll();
                         if(zalogowany.getClass().getSimpleName().equals("Root")){
-
-                            JOptionPane.showMessageDialog(null,"Root");
+                            getContentPane().add(rootLoggedInPane);
+                            rootLoggedInPane.setVisible(true);
                         }
                         if(zalogowany.getClass().getSimpleName().equals("Pielegniarka")){
-
-                            JOptionPane.showMessageDialog(null,"Pielegniarka");
+                            getContentPane().add(nurseLoggedInPane);
+                            nurseLoggedInPane.setVisible(true);
                         }
                         if(zalogowany.getClass().getSimpleName().equals("Lekarz")){
-
-                            JOptionPane.showMessageDialog(null,"Lekarz");
+                            getContentPane().add(doctorLoggedInPane);
+                            doctorLoggedInPane.setVisible(true);
                         }
                         if(zalogowany.getClass().getSimpleName().equals("Pacjent")){
-
-                            JOptionPane.showMessageDialog(null,"Pacjent");
+                            getContentPane().add(patientLoggedInPane);
+                            patientLoggedInPane.setVisible(true);
                         }
 
+                        getContentPane().revalidate();
+                        getContentPane().repaint();
 
 
                     }catch (Exception ex){
@@ -287,6 +306,11 @@ public class Frame extends JFrame  implements Serializable{
                 String adminPassword = new String(hasloAdministratora.getPassword());
                 przychodnia = new Przychodnia(nazwaNowejPrzychodni.getText(),nazwaAdministratora.getText(),"przychodnie/" +nazwaNowejPrzychodni.getText()+".przychodnia",adminPassword);
                 try {
+                    //Dodanie foledru przychodnie
+                    File dir = new File("przychodnie/");
+                    if (!dir.exists()) dir.mkdirs();
+                    new File("przychodnie/" );
+
                     File f = new File("przychodnie/" +nazwaNowejPrzychodni.getText()+".przychodnia");
                     if(f.exists()) {
                         JOptionPane.showMessageDialog(null,"Plik o podanej nazwie już istnieje");
