@@ -10,4 +10,10 @@ public class Lekarz extends Osoba implements Serializable {
             this.uprawniania.add(u);
         }
     }
+    public Lekarz(String imie, String nazwisko, Long pesel){
+        super(imie, nazwisko, pesel);
+    }
+    public void addUprawnienia(Uprawnienia u){
+        uprawniania.add(u);
+    }
 }

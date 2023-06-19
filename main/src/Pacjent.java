@@ -6,12 +6,23 @@ public class Pacjent extends Osoba implements Serializable {
         super(imie, nazwisko, pesel);
     }
 
-    public String zalozKarte(){
+    public void zalozKarte() throws AddingUserException {
         if(kartaPacjenta != null){
-            return "Karta już została założona";
+
         }else {
             kartaPacjenta = new KartaPacjenta();
-        return "Karta została założona";
         }
+    }
+    public KartaPacjenta getKartaPacjenta(){
+        return this.kartaPacjenta;
+    }
+    public void setNewPatientCard() throws AddingUserException {
+        if(kartaPacjenta == null) {
+            kartaPacjenta = new KartaPacjenta();
+        }
+        else throw new AddingUserException("Karta została już założona");
+    }
+    public void dodajDoKartyPacjenta(){
+
     }
 }

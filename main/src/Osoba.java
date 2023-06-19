@@ -40,6 +40,14 @@ public abstract class Osoba implements Serializable {
         return haslo;
     }
 
+    public void setImie(String imie) {
+        this.imie = imie;
+    }
+
+    public void setNazwisko(String nazwisko) {
+        this.nazwisko = nazwisko;
+    }
+
     public String getLogin() {
         return login;
     }

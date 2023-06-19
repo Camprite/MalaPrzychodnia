@@ -6,7 +6,7 @@ public class Pielegniarka extends Osoba implements Serializable {
         super(imie, nazwisko, pesel);
     }
 
-    public void zalozKartePacjentowi(Pacjent pacjent){
+    public void zalozKartePacjentowi(Pacjent pacjent) throws AddingUserException {
         pacjent.zalozKarte();
     }
 }
