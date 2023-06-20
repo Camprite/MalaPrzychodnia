@@ -38,6 +38,7 @@ public JMenuItem rootLogout = new JMenuItem("Wyloguj");
     public JPasswordField rootAddDocPasswordPF;
     public JLabel rootAddDocPermissionsLabel;
     public JList rootAddDocPermissionsJL;
+    public JScrollPane rootAddDocPermissionsJLJS = new JScrollPane(rootAddDocPermissionsJL);
     public JButton rootAddDocAddButton = new JButton("Dodaj lekarza");
     public JButton rootAddNurseAddButton = new JButton("Dodaj pielęgniarke");
     public JButton rootAddDocPermissionsJLClearButton = new JButton("Wyczyść zaznaczanie");
@@ -48,8 +49,80 @@ public JMenuItem rootLogout = new JMenuItem("Wyloguj");
     public JButton rootAddDocAddNewPermission;
 
     //Panel lekarza
-    public JMenuItem docLogout = new JMenuItem("Wyloguj");
     public JPanel doctorLoggedInPane;
+    public JMenuBar doctorMenuBar = new JMenuBar();
+    public JMenuItem docLogout = new JMenuItem("Wyloguj");
+    public JMenuItem docGrafik = new JMenuItem("Grafik");
+    public JMenuItem docStartWizyta = new JMenuItem("Wizyty");
+    public JMenuItem docSprawdzDanePacjenta = new JMenuItem("DanePacjenta");
+    public JPanel docSprawdzanieDanychPacjenta = new JPanel();
+    public JPanel docSprawdzanieDanychPacjentaPane1 = new JPanel();
+    public JList<String> docSprawdzanieDanychPacjentaJL = new JList<>();
+    public  JTextArea docSprawdzanieDanychPacjentaTextArea = new JTextArea();
+    public JPanel docSprawdzanieDanychPacjentaPane2 = new JPanel();
+    public JPanel docSprawdzanieDanychPacjentaPane3 = new JPanel();
+    public  JButton ddocSprawdzanieDanychPacjentaButton = new JButton("Sprawdz dane pacjenta");
+//    grafik
+
+    public JPanel docGrafikPane = new JPanel();
+    public JPanel docGrafikDlaPrzychodni = new JPanel();
+    public JTextArea docGrafikDlaPrzychodniTF = new JTextArea();
+    public JPanel nurseGrafikDlaPrzychodni = new JPanel();
+    public JTextArea nurseGrafikDlaPrzychodniTF = new JTextArea();
+
+    JMenuItem docGrafikDlaPrzychodniMI = new JMenuItem("Grafik dla przychodni");
+    JMenuItem nurseGrafikDlaPrzychodniMI = new JMenuItem("Grafik dla przychodni");
+
+
+
+
+
+
+
+    public JTextArea docGrafikTextArea = new JTextArea();
+
+
+    public ArrayList<String> docListaWizytArr = new ArrayList<>();
+    public JList docListaWizyt = new JList();
+    public JScrollPane docListaWizytJS = new JScrollPane(docListaWizyt);
+    public JButton docRozpocznijWizyte = new JButton("Rozpocznij wizyte");
+    public JPanel docRozpocznijPane = new JPanel();
+    public JPanel docRozpocznijPane1 = new JPanel();
+    public JPanel docRozpocznijPane2 = new JPanel();
+    public JPanel docRozpocznijPane3 = new JPanel();
+    public JPanel docRozpocznijPane4 = new JPanel();
+    public Wizyta obecnaWizyta = null;
+//     "Opis: " +this.opis+ "\n"+
+//            "Wywiad: " +this.wywiad+ "\n"+
+//            "Zalecenia: " +this.zalecenia+ "\n"+
+//            "Leki: " +this.leki+ "\n"+ "\n";
+    public JPanel docWizytaWTrakcie = new JPanel();
+    public JPanel docWizytaWTrakcie1 = new JPanel();
+    public JLabel docWizytaWTrakcieOpisLabel = new JLabel("Opis");
+    public JTextField docWizytaWTrakcieOpisTF = new JTextField("",20);
+    public JPanel docWizytaWTrakcie2 = new JPanel();
+    public JLabel docWizytaWTracieWywiadLabel = new JLabel("Wywiad");
+    public JTextField docWizytaWTracieWywiadTF = new JTextField("",20);
+    public JPanel docWizytaWTrakcie3 = new JPanel();
+    public JLabel docWizytaWTracieZaleceniaLabel = new JLabel("Zalecenia");
+    public JTextField docWizytaWTracieZaleceniaTF = new JTextField("",20);
+    public JPanel docWizytaWTrakcie4 = new JPanel();
+    public JLabel docWizytaWTracieLekiLabel = new JLabel("Leki");
+    public JTextField docWizytaWTracieLekiTF = new JTextField("",20);
+    public JButton docZakonczWizyte = new JButton("Zakoncz wizyte");
+    public JPanel docWizytaWTrakcie5 = new JPanel();
+
+
+
+
+
+
+
+
+
+
+
+
 
     //Panel pielegniarki
     public JMenuItem nurseLogout = new JMenuItem("Wyloguj");
@@ -60,6 +133,7 @@ public JMenuItem rootLogout = new JMenuItem("Wyloguj");
     public JMenuItem nurseSetPatientCardMI = new JMenuItem("Stwórz karte pacjenta");
     public JMenuItem nurseEditDeletePatientMI = new JMenuItem("Edytuj/Usuń pacjenta ");
     public JMenuItem nurseAddDutyPanelMI = new JMenuItem("Zarządzaj dyżurami");
+
     public JPanel nurseNewPatientPanel;
     public JPanel nurseSetPatientCardPanel;
     public JPanel nurseEditDeletePatientPanel;
@@ -161,6 +235,15 @@ public JMenuItem rootLogout = new JMenuItem("Wyloguj");
     public ArrayList<String> patientReservationPermissionsLists = null;
     public JList<String> patientReservationDocListsJL;
     public JList<String> patientReservationPermissionsListsJL;
+    public JScrollPane patientReservationPermissionsListsJLSP;
+    public JScrollPane patientReservationDocListsJLSP;
+    public JLabel patientReservationOKtorej = new JLabel("Podaj Godzine");
+    public JList patientReservationHourL = new JList(hours);
+    public JLabel patientReservationDay = new JLabel("Podaj dzień wizyty");
+    public JLabel patientTypWizyty = new JLabel("TypWizyty");
+    public JLabel patientWybierLekarza = new JLabel("Wybierz lekarza");
+    public JList patientReservationDayL = new JList(days);
+    public JButton patientReservationMakeButton = new JButton("Zarezerwuj");
     public JMenuItem patientLogout = new JMenuItem("Wyloguj");
 
 
@@ -168,7 +251,7 @@ public JMenuItem rootLogout = new JMenuItem("Wyloguj");
 
     //Przychodnia
 //TEMPORARY
-    public  Przychodnia przychodnia = new Przychodnia("root","root","przychodnie/root.przychodnia","root");
+    public  Przychodnia przychodnia  = null;
 //TEMPORARY
     public  Osoba zalogowany = null;
 
@@ -249,11 +332,11 @@ public JMenuItem rootLogout = new JMenuItem("Wyloguj");
         loginUsernamePane.add(usernameLabel = new JLabel("Nazwa użytkownika"));
         loginUsernamePane.add(username = new JTextField("",20));
 //        TEMPORARY
-        username.setText("root");
+//        username.setText("root");
         loginPasswordPane.add(passwordLabel = new JLabel("Hasło"));
         loginPasswordPane.add(password = new JPasswordField("",20));
 //        TEMPORARY
-        password.setText("root");
+//        password.setText("root");
         loginEnterPane.add(enter = new JButton("Zaloguj"));
         usernameLabel.setForeground(Color.WHITE);
         passwordLabel.setForeground(Color.WHITE);
@@ -387,12 +470,14 @@ public JMenuItem rootLogout = new JMenuItem("Wyloguj");
                         }
                         if (password.getPassword()==null) throw new InputMismatchException("Podaj hasło");
                         if (username.getText()==null) throw new InputMismatchException("Podaj nazwe użytkownika");
-                        System.out.println("login input");
-                        System.out.println(username.getText());
-                        System.out.println("haslo input");
-                        System.out.println(password.getPassword());
+//                        System.out.println("login input");
+//                        System.out.println(username.getText());
+//                        System.out.println("haslo input");
+//                        System.out.println(password.getPassword());
                         String passwordToString = new String(password.getPassword());
                         zalogowany = przychodnia.login(username.getText(), passwordToString);
+//                        System.out.println(passwordToString);
+//                        System.out.println(username.getText());
                             if(zalogowany == null) {
                                 throw new InputMismatchException("Brak podanego użytkownika w bazie");
                             }else {
@@ -448,8 +533,8 @@ public JMenuItem rootLogout = new JMenuItem("Wyloguj");
                             rootAddDocPane1.add(rootAddDocPasswordPF);
 
 //Temporary added basic doc permissions
-                            przychodnia.addPermission("USG");
-                            przychodnia.addPermission("DSG");
+//                            przychodnia.addPermission("USG");
+//                            przychodnia.addPermission("DSG");
 
 
 
@@ -467,7 +552,8 @@ public JMenuItem rootLogout = new JMenuItem("Wyloguj");
                             rootAddDocPermissionsJL.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
                             rootAddDocPermissionsJL.setSize(new Dimension(200,200));
                             rootAddDocPermissionsJL.setPreferredSize(new Dimension(100,100));
-                            rootAddDocPermissionsJLPane.add(rootAddDocPermissionsJL);
+                            rootAddDocPermissionsJLJS = new JScrollPane(rootAddDocPermissionsJL);
+                            rootAddDocPermissionsJLPane.add(rootAddDocPermissionsJLJS);
 
 
                             rootAddDocPane2.add(rootAddDocAddButton);
@@ -507,6 +593,7 @@ public JMenuItem rootLogout = new JMenuItem("Wyloguj");
                             nurseMenuBar.add(nurseEditDeletePatientMI);
                             nurseMenuBar.add(nurseAddDutyPanelMI);
                             nurseMenuBar.add(nurseLogout);
+                            nurseMenuBar.add(nurseGrafikDlaPrzychodniMI);
 //
 //                              DUTY MANIPULATION main view
                             empoyeesArr = przychodnia.getEmployeesAsArrayOfString();
@@ -560,23 +647,6 @@ public JMenuItem rootLogout = new JMenuItem("Wyloguj");
                             nurseDutyPanel2.setBackground(backgound);
                             nurseDutyPanel3.setBackground(backgound);
                             nurseDutyPanel4.setBackground(backgound);
-//                            END DUTY MANIPULATION
-
-
-//                                NURSEPANE
-//                                END NURSEPANE
-
-//                            ADDING PATIENT
-//                            END ADDING PATIENT
-
-//                            ADDING PATIENT CARD
-//                            END ADDING PATIENT CARD
-
-//                            EDITING PATIENT
-//                            END EDITING PATIENT
-
-//                            DUTY MANIPULATION
-//                            END DUTY MANIPULATION
                             repaint();
                             revalidate();
                             JScrollPane nurseMainScrollPane = new JScrollPane(nurseLoggedInPane);
@@ -586,8 +656,57 @@ public JMenuItem rootLogout = new JMenuItem("Wyloguj");
                             nurseLoggedInPane.setVisible(true);
                         }
                         if(zalogowany.getClass().getSimpleName().equals("Lekarz")){
+                            doctorLoggedInPane = new JPanel();
+                            doctorLoggedInPane.setBackground(backgound);
+                            doctorLoggedInPane.removeAll();
+                            docRozpocznijPane.removeAll();
+                            docRozpocznijPane1.removeAll();
+                            docRozpocznijPane2.removeAll();
+                            docRozpocznijPane3.removeAll();
+                            docRozpocznijPane4.removeAll();
+                            doctorLoggedInPane.setLayout(new BoxLayout(doctorLoggedInPane,BoxLayout.Y_AXIS));
+                            getJMenuBar().removeAll();
+                            doctorMenuBar.add(docRozpocznijWizyte);
+                            doctorMenuBar.add(docSprawdzDanePacjenta);
+                            doctorMenuBar.add(docGrafik);
+                            doctorMenuBar.add(docStartWizyta);
+                            doctorMenuBar.add(docLogout);
+                            doctorMenuBar.add(docGrafikDlaPrzychodniMI);
+                            docRozpocznijPane.setBackground(backgound);
+                            docRozpocznijPane1.setBackground(backgound);
+                            docRozpocznijPane2.setBackground(backgound);
+                            docRozpocznijPane3.setBackground(backgound);
+                            docRozpocznijPane4.setBackground(backgound);
+
+                            docListaWizytArr = przychodnia.getDocsVisits((Lekarz)zalogowany);
+                            docListaWizyt = new JList(docListaWizytArr.toArray(new String[docListaWizytArr.size()]));
+                            docListaWizyt.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+                            JScrollPane docListaWizytJS = new JScrollPane(docListaWizyt);
+                            docListaWizytJS.setPreferredSize(new Dimension(500,200));
+
+
+                            docRozpocznijPane1.add(docListaWizytJS);
+                            docRozpocznijPane2.add(docRozpocznijWizyte);
+//                            docRozpocznijPane3.add();
+//                            docRozpocznijPane4.add();
+//                            System.out.println("docListaWizyt");
+//                            System.out.println(docListaWizytArr);
+
+
+
+
+
+
+                            doctorLoggedInPane.add(docRozpocznijPane1);
+                            doctorLoggedInPane.add(docRozpocznijPane2);
+                            doctorLoggedInPane.add(docRozpocznijPane3);
+                            doctorLoggedInPane.add(docRozpocznijPane4);
+                            repaint();
+                            revalidate();
+                            setJMenuBar(doctorMenuBar);
                             getContentPane().add(doctorLoggedInPane);
                             doctorLoggedInPane.setVisible(true);
+                            getContentPane().revalidate();
                         }
                         if(zalogowany.getClass().getSimpleName().equals("Pacjent")){
                             patientLoggedInPane = new JPanel();
@@ -608,7 +727,14 @@ public JMenuItem rootLogout = new JMenuItem("Wyloguj");
                             patientVisitsPane3.setBackground(backgound);
 
                             try {
-                                ArrayList<String> wizytyPacjenta =  przychodnia.getPacjentVisitsAsStrings((Pacjent) zalogowany);
+                                Pacjent tempZalogowany = (Pacjent) zalogowany;
+                                ArrayList<String> wizytyPacjenta = new ArrayList<>( tempZalogowany.getKartaPacjenta().getWizytyAsString() );
+//                                System.out.println("Dlaczego nie dzialasz?");
+                                for (String w:wizytyPacjenta
+                                     ) {
+//                                    System.out.println(w);
+                                }
+
                                 patientVisitsArea.setEditable(false);
                                 String output = "";
                                 for (String w:wizytyPacjenta
@@ -622,6 +748,7 @@ public JMenuItem rootLogout = new JMenuItem("Wyloguj");
                                 patientVisitsArea.setPreferredSize(new Dimension(500,500));
                                 patientVisitsAreaSP.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
                                 patientVisitsPane.add(patientVisitsAreaSP);
+                                repaint();
 
                             }catch (Exception ex){
                                 JOptionPane.showMessageDialog(null,"Brak wizyt");
@@ -658,12 +785,247 @@ public JMenuItem rootLogout = new JMenuItem("Wyloguj");
 
             }
         });
+        docSprawdzDanePacjenta.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                getContentPane().removeAll();
+                docSprawdzanieDanychPacjentaPane1.removeAll();
+                docSprawdzanieDanychPacjentaPane2.removeAll();
+                docSprawdzanieDanychPacjentaPane3.removeAll();
+                docSprawdzanieDanychPacjenta.removeAll();
+                docSprawdzanieDanychPacjenta = new JPanel();
+                docSprawdzanieDanychPacjenta.setLayout(new BoxLayout(docSprawdzanieDanychPacjenta,BoxLayout.Y_AXIS));
+                docSprawdzanieDanychPacjenta.setBackground(backgound);
+                docSprawdzanieDanychPacjentaPane1.setBackground(backgound);
+                docSprawdzanieDanychPacjentaPane2.setBackground(backgound);
+                docSprawdzanieDanychPacjentaPane3.setBackground(backgound);
+                docSprawdzanieDanychPacjentaPane1.add(docSprawdzanieDanychPacjentaTextArea);
+                docSprawdzanieDanychPacjentaJL = new JList(przychodnia.getPatientsForDoc().toArray(new String[przychodnia.getPatientsForDoc().size()]));
+
+                JScrollPane docSprawdzanieDanychPacjentaScrollpane = new JScrollPane(docSprawdzanieDanychPacjentaJL);
+                docSprawdzanieDanychPacjentaScrollpane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+                docSprawdzanieDanychPacjentaScrollpane.setPreferredSize(new Dimension(400,400));
+                docSprawdzanieDanychPacjentaJL.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+                docSprawdzanieDanychPacjentaPane1.add(docSprawdzanieDanychPacjentaJL);
+                docSprawdzanieDanychPacjentaPane2.add(docSprawdzanieDanychPacjentaTextArea);
+//                docSprawdzanieDanychPacjentaPane3.add(ddocSprawdzanieDanychPacjentaButton);
+
+                docSprawdzanieDanychPacjenta.add(docSprawdzanieDanychPacjentaPane1);
+//                docSprawdzanieDanychPacjenta.add(docSprawdzanieDanychPacjentaPane2);
+//                docSprawdzanieDanychPacjenta.add(docSprawdzanieDanychPacjentaPane3);
+
+                getContentPane().add(docSprawdzanieDanychPacjenta);
+                add(docSprawdzanieDanychPacjenta);
+
+                repaint();
+                revalidate();
+                getContentPane().revalidate();
+                getContentPane().repaint();
+                docSprawdzanieDanychPacjenta.setVisible(true);
+                getContentPane().revalidate();
+            }
+        });
+        docStartWizyta.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                getContentPane().removeAll();
+                doctorLoggedInPane = new JPanel();
+                doctorLoggedInPane.setBackground(backgound);
+                doctorLoggedInPane.removeAll();
+                docRozpocznijPane.removeAll();
+                docRozpocznijPane1.removeAll();
+                docRozpocznijPane2.removeAll();
+                docRozpocznijPane3.removeAll();
+                docRozpocznijPane4.removeAll();
+                doctorLoggedInPane.setLayout(new BoxLayout(doctorLoggedInPane,BoxLayout.Y_AXIS));
+                getJMenuBar().removeAll();
+                doctorMenuBar.add(docRozpocznijWizyte);
+                doctorMenuBar.add(docSprawdzDanePacjenta);
+                doctorMenuBar.add(docGrafik);
+                doctorMenuBar.add(docStartWizyta);
+                doctorMenuBar.add(docLogout);
+                docRozpocznijPane.setBackground(backgound);
+                docRozpocznijPane1.setBackground(backgound);
+                docRozpocznijPane2.setBackground(backgound);
+                docRozpocznijPane3.setBackground(backgound);
+                docRozpocznijPane4.setBackground(backgound);
+
+                docListaWizytArr = przychodnia.getDocsVisits((Lekarz)zalogowany);
+                docListaWizyt = new JList(docListaWizytArr.toArray(new String[docListaWizytArr.size()]));
+                docListaWizyt.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+                JScrollPane docListaWizytJS = new JScrollPane(docListaWizyt);
+                docListaWizytJS.setPreferredSize(new Dimension(500,200));
+
+
+                docRozpocznijPane1.add(docListaWizytJS);
+                docRozpocznijPane2.add(docRozpocznijWizyte);
+//                            docRozpocznijPane3.add();
+//                            docRozpocznijPane4.add();
+//                System.out.println("docListaWizyt");
+//                System.out.println(docListaWizytArr);
+
+
+
+
+
+
+                doctorLoggedInPane.add(docRozpocznijPane1);
+                doctorLoggedInPane.add(docRozpocznijPane2);
+                doctorLoggedInPane.add(docRozpocznijPane3);
+                doctorLoggedInPane.add(docRozpocznijPane4);
+                repaint();
+                revalidate();
+                setJMenuBar(doctorMenuBar);
+                getContentPane().add(doctorLoggedInPane);
+                doctorLoggedInPane.setVisible(true);
+                getContentPane().revalidate();
+            }
+        });
+        docRozpocznijWizyte.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                obecnaWizyta = przychodnia.getWizyta(docListaWizyt.getSelectedValue().toString());
+//                System.out.println(przychodnia.getWizyta(docListaWizyt.getSelectedValue().toString()));
+                if(obecnaWizyta != null){
+//                System.out.println("testttasdoasdj");
+//
+//                System.out.println(obecnaWizyta.getShortWizytaAsString());
+
+                getContentPane().removeAll();
+                docWizytaWTrakcie.removeAll();
+                docWizytaWTrakcie.setLayout(new BoxLayout(docWizytaWTrakcie,BoxLayout.Y_AXIS));
+                docWizytaWTrakcie.setBackground(backgound);
+                docWizytaWTrakcie1.setBackground(backgound);
+                docWizytaWTrakcie2.setBackground(backgound);
+                docWizytaWTrakcie3.setBackground(backgound);
+                docWizytaWTrakcie4.setBackground(backgound);
+                docWizytaWTrakcie5.setBackground(backgound);
+
+                    docWizytaWTrakcie1.add(docWizytaWTrakcieOpisLabel);
+                    docWizytaWTrakcie1.add(docWizytaWTrakcieOpisTF);
+                    docWizytaWTrakcie2.add(docWizytaWTracieWywiadLabel);
+                    docWizytaWTrakcie2.add(docWizytaWTracieWywiadTF);
+                    docWizytaWTrakcie3.add(docWizytaWTracieZaleceniaLabel);
+                    docWizytaWTrakcie3.add(docWizytaWTracieZaleceniaTF);
+                    docWizytaWTrakcie4.add(docWizytaWTracieLekiLabel);
+                    docWizytaWTrakcie4.add(docWizytaWTracieLekiTF);
+                    docWizytaWTrakcie5.add(docZakonczWizyte);
+
+
+                    docWizytaWTrakcie.add(docWizytaWTrakcie1);
+                    docWizytaWTrakcie.add(docWizytaWTrakcie2);
+                    docWizytaWTrakcie.add(docWizytaWTrakcie3);
+                    docWizytaWTrakcie.add(docWizytaWTrakcie4);
+                    docWizytaWTrakcie.add(docWizytaWTrakcie5);
+                    getContentPane().add(docWizytaWTrakcie);
+                    repaint();
+                    revalidate();
+
+
+
+
+            }}
+        });
+
+        docZakonczWizyte.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                obecnaWizyta.setOpis(docWizytaWTrakcieOpisTF.getText());
+
+                obecnaWizyta.setWywiad(docWizytaWTracieWywiadTF.getText());
+                obecnaWizyta.setZalecenia(docWizytaWTracieZaleceniaTF.getText());
+                obecnaWizyta.setLeki(docWizytaWTracieLekiTF.getText());
+                przychodnia.zakonczWizyte(obecnaWizyta);
+
+                docRozpocznijPane.setBackground(backgound);
+                docRozpocznijPane1.setBackground(backgound);
+                docRozpocznijPane2.setBackground(backgound);
+                docRozpocznijPane3.setBackground(backgound);
+                docRozpocznijPane4.setBackground(backgound);
+
+                obecnaWizyta = null;
+                getContentPane().removeAll();
+                doctorLoggedInPane.removeAll();
+                doctorLoggedInPane = new JPanel();
+                doctorLoggedInPane.setBackground(backgound);
+                doctorLoggedInPane.removeAll();
+                docRozpocznijPane.removeAll();
+                docRozpocznijPane1.removeAll();
+                docRozpocznijPane2.removeAll();
+                docRozpocznijPane3.removeAll();
+                docRozpocznijPane4.removeAll();
+                doctorLoggedInPane.setLayout(new BoxLayout(doctorLoggedInPane,BoxLayout.Y_AXIS));
+                getJMenuBar().removeAll();
+                doctorMenuBar.add(docRozpocznijWizyte);
+                doctorMenuBar.add(docSprawdzDanePacjenta);
+                doctorMenuBar.add(docGrafik);
+                doctorMenuBar.add(docStartWizyta);
+                doctorMenuBar.add(docLogout);
+
+                docListaWizytArr = przychodnia.getDocsVisits((Lekarz)zalogowany);
+                docListaWizyt = new JList(docListaWizytArr.toArray(new String[docListaWizytArr.size()]));
+                docListaWizyt.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+                JScrollPane docListaWizytJS = new JScrollPane(docListaWizyt);
+                docListaWizytJS.setPreferredSize(new Dimension(500,200));
+
+
+                docRozpocznijPane1.add(docListaWizytJS);
+                docRozpocznijPane2.add(docRozpocznijWizyte);
+//                            docRozpocznijPane3.add();
+//                            docRozpocznijPane4.add();
+//                System.out.println("docListaWizyt");
+//                System.out.println(docListaWizytArr);
+
+
+
+
+
+
+                doctorLoggedInPane.add(docRozpocznijPane1);
+                doctorLoggedInPane.add(docRozpocznijPane2);
+                doctorLoggedInPane.add(docRozpocznijPane3);
+                doctorLoggedInPane.add(docRozpocznijPane4);
+                repaint();
+                revalidate();
+                setJMenuBar(doctorMenuBar);
+                getContentPane().add(doctorLoggedInPane);
+                doctorLoggedInPane.setVisible(true);
+                getContentPane().revalidate();
+
+
+
+            }
+        });
+        docLogout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                zalogowany = null;
+                getContentPane().removeAll();
+                getJMenuBar().removeAll();
+                loginMenuBar.add(stronaLogowania);
+                loginMenuBar.add(otworzPrzychodnieZPliku);
+                loginMenuBar.add(stworzNowaPrzychodnie);
+                loginMenuBar.add(zamknijZapiszPrzychodnie);
+
+//        loginMenuBar.add(loginMenu);
+                setJMenuBar(loginMenuBar);
+                getContentPane().add(loginPane);
+                loginPane.setVisible(true);
+                getContentPane().revalidate();
+                getContentPane().repaint();
+                getJMenuBar().revalidate();
+                getJMenuBar().repaint();
+            }
+        });
         patientMakeReservation.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 getContentPane().removeAll();
-                patientMakeReservationPane = new JPanel();
                 patientMakeReservationPane.removeAll();
+                patientMakeReservationPane3.removeAll();
+                patientMakeReservationPane1.removeAll();
+                patientMakeReservationPane2.removeAll();
+                patientMakeReservationPane = new JPanel();
                 patientMakeReservationPane.setBackground(backgound);
                 patientMakeReservationPane.setLayout(new BoxLayout(patientMakeReservationPane,BoxLayout.Y_AXIS));
                 patientMakeReservationPane1.setLayout(new FlowLayout());
@@ -676,18 +1038,64 @@ public JMenuItem rootLogout = new JMenuItem("Wyloguj");
                 patientMakeReservationPane3.setBackground(backgound);
                 patientMakeReservationPane4.setBackground(backgound);
                 patientReservationDocLists = przychodnia.getDocsAsStrings();
+//                System.out.println(patientReservationDocLists);
                 patientReservationPermissionsLists = przychodnia.getUprawnieniaAsArrayOfString();
+                patientReservationPermissionsListsJL = new JList(patientReservationPermissionsLists.toArray(new String[patientReservationPermissionsLists.size()]));
+                        patientReservationDocListsJL = new JList(patientReservationDocLists.toArray(new String[patientReservationDocLists.size()]));
+                patientReservationPermissionsListsJL.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+                patientReservationDocListsJL.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+                patientReservationHourL.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+                patientReservationDayL.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+                JScrollPane patientReservationPermissionsListsJLSP = new JScrollPane(patientReservationPermissionsListsJL);
+                JScrollPane patientReservationDocListsJLSP = new JScrollPane(patientReservationDocListsJL);
+
+
+                patientMakeReservationPane1.add(patientTypWizyty);
+                patientMakeReservationPane1.add(patientReservationPermissionsListsJLSP);
+                patientMakeReservationPane2.add(patientWybierLekarza);
+                patientMakeReservationPane2.add(patientReservationDocListsJLSP);
+                JScrollPane patientReservationDaySC = new JScrollPane(patientReservationDayL);
+                   JScrollPane     patientReservationHourLSC = new JScrollPane(     patientReservationHourL);
+                patientReservationDaySC.setPreferredSize(new Dimension(100,100));
+                patientReservationHourLSC.setPreferredSize(new Dimension(100,100));
+
+
+
+                   patientMakeReservationPane3.add(patientReservationOKtorej);
+                patientMakeReservationPane3.add(patientReservationDay);
+                patientMakeReservationPane3.add(patientReservationDaySC);
+                patientMakeReservationPane3.add(patientReservationOKtorej);
+                patientMakeReservationPane3.add(patientReservationHourLSC);
+                patientMakeReservationPane4.add(patientReservationMakeButton);
 
                 patientMakeReservationPane.add(patientMakeReservationPane1);
-                patientMakeReservationPane.add(patientMakeReservationPane1);
-                patientMakeReservationPane.add(patientMakeReservationPane1);
-                patientMakeReservationPane.add(patientMakeReservationPane1);
-
+                patientMakeReservationPane.add(patientMakeReservationPane2);
+                patientMakeReservationPane.add(patientMakeReservationPane3);
+                patientMakeReservationPane.add(patientMakeReservationPane4);
+//                System.out.println(patientReservationDocLists);
+//                System.out.println(patientReservationPermissionsLists);
                 repaint();
                 revalidate();
                 getContentPane().add(patientMakeReservationPane);
-                patientLoggedInPane.setVisible(true);
+                patientMakeReservationPane.revalidate();
+                patientMakeReservationPane.repaint();
+                patientMakeReservationPane.setVisible(true);
                 getContentPane().revalidate();
+            }
+        });
+        patientReservationMakeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (przychodnia.canDocMakeVisit(patientReservationDocListsJL.getSelectedValue(), patientReservationPermissionsListsJL.getSelectedValue(), patientReservationHourL.getSelectedValue().toString(), patientReservationDayL.getSelectedValue().toString())){
+                    System.out.println("Przechodzi?");
+                    przychodnia.addNewVisit(patientReservationDocListsJL.getSelectedValue(),(Pacjent) zalogowany, patientReservationPermissionsListsJL.getSelectedValue(), patientReservationHourL.getSelectedValue().toString(), patientReservationDayL.getSelectedValue().toString());
+                    JOptionPane.showMessageDialog(null,"Dodano wizyte");
+
+                }
+
+         else {
+                    JOptionPane.showMessageDialog(null,"Nie udało się zarezerwowac wizyty");
+                }
             }
         });
         patientShowVisits.addActionListener(new ActionListener() {
@@ -813,6 +1221,26 @@ public JMenuItem rootLogout = new JMenuItem("Wyloguj");
                 }
 
         });
+        docGrafik.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                getContentPane().removeAll();
+                docGrafikPane.removeAll();
+                docGrafikPane = new JPanel();
+                docGrafikPane.setBackground(backgound);
+                docGrafikPane.setLayout(new BoxLayout(docGrafikPane,BoxLayout.Y_AXIS));
+                docGrafikTextArea.setPreferredSize(new Dimension(300,500));
+                String grafik = przychodnia.getGrafikForSingleDoc(zalogowany);
+                docGrafikTextArea.setText(grafik);
+                docGrafikTextArea.setEditable(false);
+
+
+                docGrafikPane.add(docGrafikTextArea);
+                add(docGrafikPane);
+                getContentPane().revalidate();
+                getContentPane().repaint();
+            }
+        });
         rootDodajUprawnienie.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -827,7 +1255,8 @@ public JMenuItem rootLogout = new JMenuItem("Wyloguj");
                 rootAddDocPermissionsJL.setSize(new Dimension(200,200));
                 rootAddDocPermissionsJL.setPreferredSize(new Dimension(100,100));
                 rootAddDocPermissionsJLPane.removeAll();
-                rootAddDocPermissionsJLPane.add(rootAddDocPermissionsJL);
+                rootAddDocPermissionsJLJS = new JScrollPane(rootAddDocPermissionsJL);
+                rootAddDocPermissionsJLPane.add(rootAddDocPermissionsJLJS);
 //
                 getContentPane().revalidate();
                 getContentPane().repaint();
@@ -944,7 +1373,7 @@ public JMenuItem rootLogout = new JMenuItem("Wyloguj");
                 try {
                     if(rootAddDocNameTF.getText().isBlank() || rootAddDocSurnameTF.getText().isBlank() || rootAddDocPESELTF.getText().isBlank() || rootAddDocLoginTF.getText().isBlank() || rootAddDocPasswordPF.getPassword().toString().isBlank()) throw new AddingUserException("Żadne pole nie może być puste");
                     if(Long.valueOf(rootAddDocPESELTF.getText())<10000000000L || Long.valueOf(rootAddDocPESELTF.getText())>=100000000000L)throw new AddingUserException("Niezgodny pesel");
-                    System.out.println("Passwordcheck");
+//                    System.out.println("Passwordcheck");
 
                     przychodnia.addNewNurse(rootAddDocNameTF.getText(),rootAddDocSurnameTF.getText(), Long.valueOf(rootAddDocPESELTF.getText()) ,rootAddDocLoginTF.getText(),String.copyValueOf(rootAddDocPasswordPF.getPassword()));
                     JOptionPane.showMessageDialog(null,"Dodano pielęgniarke");
@@ -963,6 +1392,7 @@ public JMenuItem rootLogout = new JMenuItem("Wyloguj");
                   int[] selectedIx =  rootAddDocPermissionsJL.getSelectedIndices();
                     String sel;
                     for (int i = 0; i < selectedIx.length; i++) {
+                        System.out.println("TEST");
                         sel = rootAddDocPermissionsJL.getModel().getElementAt(selectedIx[i]).toString();
                         System.out.println(sel);
                         Uprawnienia u1 = przychodnia.getUprawnienie(sel);
@@ -971,11 +1401,17 @@ public JMenuItem rootLogout = new JMenuItem("Wyloguj");
                         }
 
                     }
+                    for (Uprawnienia upr:u){
+                        System.out.println("Lista upranien");
+                        System.out.println(upr.getNazwaUprawnienia());
+
+
+                    }
 
                     if(rootAddDocNameTF.getText().isBlank() || rootAddDocSurnameTF.getText().isBlank() || rootAddDocPESELTF.getText().isBlank() || rootAddDocLoginTF.getText().isBlank() || rootAddDocPasswordPF.getPassword().toString().isBlank()) throw new AddingUserException("Żadne pole nie może być puste");
                     if(Long.valueOf(rootAddDocPESELTF.getText())<10000000000L || Long.valueOf(rootAddDocPESELTF.getText())>=100000000000L)throw new AddingUserException("Niezgodny pesel");
 
-                    przychodnia.addNewDoc(rootAddDocNameTF.getText(),rootAddDocSurnameTF.getText(), Long.valueOf(rootAddDocPESELTF.getText()) ,rootAddDocLoginTF.getText(),rootAddDocPasswordPF.getPassword().toString(),u);
+                    przychodnia.addNewDoc(rootAddDocNameTF.getText(),rootAddDocSurnameTF.getText(), Long.valueOf(rootAddDocPESELTF.getText()) ,rootAddDocLoginTF.getText(),String.copyValueOf(rootAddDocPasswordPF.getPassword()),u);
                     JOptionPane.showMessageDialog(null,"Dodano lekarza");
                 }catch (AddingUserException ex){
                     ex.getMessage();
@@ -988,9 +1424,9 @@ public JMenuItem rootLogout = new JMenuItem("Wyloguj");
         nurseDutyChangeApplyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println(nurseDutyChangeDayList.getSelectedValue());
-                System.out.println(nurseDutyChangeTimeListStart.getSelectedValue());
-                System.out.println(nurseDutyChangeTimeListEnd.getSelectedValue());
+//                System.out.println(nurseDutyChangeDayList.getSelectedValue());
+//                System.out.println(nurseDutyChangeTimeListStart.getSelectedValue());
+//                System.out.println(nurseDutyChangeTimeListEnd.getSelectedValue());
                 int hourstart = Integer.parseInt(nurseDutyChangeTimeListStart.getSelectedValue().toString());
                 int hourend = Integer.parseInt(nurseDutyChangeTimeListEnd.getSelectedValue().toString());
                 try {
@@ -1001,12 +1437,7 @@ public JMenuItem rootLogout = new JMenuItem("Wyloguj");
                         throw new AddingDutyException("Godzina nie może być ujemna");
                     }
 
-                    } catch (AddingDutyException ex) {
-                    JOptionPane.showMessageDialog(null,ex.getMessage());
 
-                    }
-                System.out.println("TEST");
-                try {
                     przychodnia.addDuty(nurseDutyChangeEmployeeList.getSelectedValue().toString(),nurseDutyChangeDayList.getSelectedValue().toString(),hourstart,hourend);
                     JOptionPane.showMessageDialog(null,"Dodano grafik");
 
@@ -1020,7 +1451,7 @@ public JMenuItem rootLogout = new JMenuItem("Wyloguj");
         nurseNewPatientMI.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("TEST");
+//                System.out.println("TEST");
                 getContentPane().removeAll();
 
                 nurseAddPatientPane.setLayout(new BoxLayout(nurseAddPatientPane,BoxLayout.PAGE_AXIS));
@@ -1174,7 +1605,7 @@ public JMenuItem rootLogout = new JMenuItem("Wyloguj");
         nurseAddDutyPanelMI.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("TEST");
+//                System.out.println("TEST");
                 getContentPane().removeAll();
                 nurseLoggedInPane.add(nurseDutyPanel);
                 nurseLoggedInPane.add(nurseDutyPanel1);
@@ -1206,6 +1637,45 @@ public JMenuItem rootLogout = new JMenuItem("Wyloguj");
                 }
             }
 
+        });
+        docGrafikDlaPrzychodniMI.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                getContentPane().removeAll();
+                docGrafikDlaPrzychodni.removeAll();
+                docGrafikDlaPrzychodni = new JPanel();
+                docGrafikDlaPrzychodni.setBackground(backgound);
+                docGrafikDlaPrzychodni.setLayout(new BoxLayout(docGrafikDlaPrzychodni,BoxLayout.Y_AXIS));
+                docGrafikDlaPrzychodniTF = new JTextArea();
+                docGrafikDlaPrzychodniTF.setPreferredSize(new Dimension(300,300));
+                String grafikDlaPrzychodni = przychodnia.getGrafikDlaWszystkich();
+                docGrafikDlaPrzychodniTF.setText(grafikDlaPrzychodni);
+                docGrafikDlaPrzychodniTF.setEditable(false);
+                docGrafikDlaPrzychodni.add(docGrafikDlaPrzychodniTF);
+                getContentPane().add(docGrafikDlaPrzychodni);
+                repaint();
+                revalidate();
+            }
+        });
+        nurseGrafikDlaPrzychodniMI.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                getContentPane().removeAll();
+                nurseGrafikDlaPrzychodni.removeAll();
+                nurseGrafikDlaPrzychodni = new JPanel();
+                nurseGrafikDlaPrzychodni.setBackground(backgound);
+                nurseGrafikDlaPrzychodni.setLayout(new BoxLayout(nurseGrafikDlaPrzychodni,BoxLayout.Y_AXIS));
+                nurseGrafikDlaPrzychodniTF = new JTextArea();
+                nurseGrafikDlaPrzychodniTF.setPreferredSize(new Dimension(300,300));
+                String grafikDlaPrzychodni = przychodnia.getGrafikDlaWszystkich();
+                nurseGrafikDlaPrzychodniTF.setText(grafikDlaPrzychodni);
+                nurseGrafikDlaPrzychodniTF.setEditable(false);
+                nurseGrafikDlaPrzychodni.add(nurseGrafikDlaPrzychodniTF);
+                getContentPane().add(nurseGrafikDlaPrzychodni);
+                getContentPane().repaint();
+                repaint();
+                revalidate();
+            }
         });
     }
 }

@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class KartaPacjenta {
+public class KartaPacjenta  implements Serializable {
     private ArrayList<Wizyta> wizyty = new ArrayList<>();
 
 public void dodajWizyte(Wizyta w){
@@ -10,6 +11,14 @@ public void dodajWizyte(Wizyta w){
 public ArrayList<Wizyta> getWizyty(){
     return this.wizyty;
 }
+    public ArrayList<String>     getWizytyAsString(){
+    ArrayList<String> out = new ArrayList<>();
+        for (Wizyta w: wizyty
+             ) {
+            out.add(w.getWizytaAsString());
+        }
+        return out;
+    }
 
 
 }
